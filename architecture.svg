@@ -1,0 +1,275 @@
+<svg width="900" viewBox="0 0 900 1080" xmlns="http://www.w3.org/2000/svg" role="img">
+<title>QE Copilot — Clean Architecture</title>
+<desc>Diagrama estrutural em camadas: Entry (Streamlit, FastAPI, Robot Framework), Adapters (Orchestrator, Agent, PromptBuilder, ValidatorChain, ResponseBuilder), Domain (Entities, Ports, Use Cases) e Infrastructure (B3GPT, RAG, VectorStores).</desc>
+
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#555" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <marker id="arrow-dash" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+    <path d="M2 1L8 5L2 9" fill="none" stroke="#999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </marker>
+  <style>
+    text { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    .layer-label { font-size: 11px; fill: #999; font-weight: 500; letter-spacing: 0.5px; }
+    .box-title { font-size: 13px; font-weight: 600; }
+    .box-sub   { font-size: 11px; }
+    /* Entry */
+    .c-entry-fill   { fill: #f5f5f5; stroke: #ccc; }
+    .c-entry-title  { fill: #333; }
+    .c-entry-sub    { fill: #666; }
+    /* Adapters purple */
+    .c-purple-fill  { fill: #EEEDFE; stroke: #534AB7; }
+    .c-purple-title { fill: #26215C; }
+    .c-purple-sub   { fill: #534AB7; }
+    /* Adapters teal */
+    .c-teal-fill    { fill: #E1F5EE; stroke: #0F6E56; }
+    .c-teal-title   { fill: #04342C; }
+    .c-teal-sub     { fill: #0F6E56; }
+    /* Domain amber */
+    .c-amber-fill   { fill: #FAEEDA; stroke: #854F0B; }
+    .c-amber-title  { fill: #412402; }
+    .c-amber-sub    { fill: #854F0B; }
+    /* Domain coral */
+    .c-coral-fill   { fill: #FAECE7; stroke: #993C1D; }
+    .c-coral-title  { fill: #4A1B0C; }
+    .c-coral-sub    { fill: #993C1D; }
+    /* Infrastructure blue */
+    .c-blue-fill    { fill: #E6F1FB; stroke: #185FA5; }
+    .c-blue-title   { fill: #042C53; }
+    .c-blue-sub     { fill: #185FA5; }
+    /* Red */
+    .c-red-fill     { fill: #FCEBEB; stroke: #A32D2D; }
+    .c-red-title    { fill: #501313; }
+    .c-red-sub      { fill: #A32D2D; }
+    /* Gray */
+    .c-gray-fill    { fill: #F1EFE8; stroke: #5F5E5A; }
+    .c-gray-title   { fill: #2C2C2A; }
+    .c-gray-sub     { fill: #5F5E5A; }
+    /* Background bands */
+    .band-entry  { fill: #fafafa; }
+    .band-adapt  { fill: #f7f6ff; }
+    .band-domain { fill: #fffbf2; }
+    .band-infra  { fill: #f0f6ff; }
+    /* Arrows */
+    .arr-main { stroke: #555; stroke-width: 1.5; fill: none; }
+    .arr-dash { stroke: #aaa; stroke-width: 1; fill: none; stroke-dasharray: 5 3; }
+    /* Legend */
+    .legend-text { font-size: 11px; fill: #555; }
+  </style>
+</defs>
+
+<!-- ── Background bands ─────────────────────────────────── -->
+<rect x="0" y="0"   width="900" height="145" class="band-entry"/>
+<rect x="0" y="145" width="900" height="290" class="band-adapt"/>
+<rect x="0" y="435" width="900" height="200" class="band-domain"/>
+<rect x="0" y="635" width="900" height="195" class="band-infra"/>
+<rect x="0" y="830" width="900" height="120" fill="#f8f8f8"/>
+
+<!-- ── Layer labels ─────────────────────────────────────── -->
+<text class="layer-label" x="18" y="72"  transform="rotate(-90,18,72)">ENTRY</text>
+<text class="layer-label" x="18" y="292" transform="rotate(-90,18,292)">ADAPTERS</text>
+<text class="layer-label" x="18" y="538" transform="rotate(-90,18,538)">DOMAIN</text>
+<text class="layer-label" x="18" y="736" transform="rotate(-90,18,736)">INFRA</text>
+
+<!-- ══════════════════════════════════════════════════════
+     ENTRY
+══════════════════════════════════════════════════════ -->
+
+<!-- Streamlit -->
+<rect x="40" y="20" width="190" height="56" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="135" y="43" text-anchor="middle" dominant-baseline="central">Streamlit frontend</text>
+<text class="box-sub c-gray-sub" x="135" y="62" text-anchor="middle" dominant-baseline="central">5 abas · conecta à API</text>
+
+<!-- FastAPI -->
+<rect x="260" y="20" width="240" height="56" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="380" y="43" text-anchor="middle" dominant-baseline="central">FastAPI — infrastructure/api/</text>
+<text class="box-sub c-gray-sub" x="380" y="62" text-anchor="middle" dominant-baseline="central">7 rotas · auth · DTOs · converters</text>
+
+<!-- Robot Framework -->
+<rect x="530" y="20" width="220" height="56" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="640" y="43" text-anchor="middle" dominant-baseline="central">Robot Framework</text>
+<text class="box-sub c-gray-sub" x="640" y="62" text-anchor="middle" dominant-baseline="central">QACopilot facade · keywords</text>
+
+<!-- QACopilot facade -->
+<rect x="310" y="98" width="190" height="40" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="405" y="118" text-anchor="middle" dominant-baseline="central">qa_copilot.py — facade</text>
+
+<!-- Container -->
+<rect x="310" y="155" width="190" height="44" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="405" y="172" text-anchor="middle" dominant-baseline="central">Container — DI</text>
+<text class="box-sub c-gray-sub" x="405" y="189" text-anchor="middle" dominant-baseline="central">cached_property · singletons</text>
+
+<!-- entry → facade arrows -->
+<line x1="135" y1="76" x2="340" y2="98" class="arr-main" marker-end="url(#arrow)"/>
+<line x1="380" y1="76" x2="405" y2="98" class="arr-main" marker-end="url(#arrow)"/>
+<line x1="640" y1="76" x2="470" y2="98" class="arr-main" marker-end="url(#arrow)"/>
+<!-- facade → container -->
+<line x1="405" y1="138" x2="405" y2="155" class="arr-main" marker-end="url(#arrow)"/>
+
+<!-- separator -->
+<line x1="30" y1="218" x2="870" y2="218" stroke="#ddd" stroke-width="1"/>
+
+<!-- ══════════════════════════════════════════════════════
+     ADAPTERS — ROW 1
+══════════════════════════════════════════════════════ -->
+
+<!-- Orchestrator -->
+<rect x="40" y="234" width="195" height="56" rx="8" stroke-width="0.75" class="c-purple-fill"/>
+<text class="box-title c-purple-title" x="137" y="255" text-anchor="middle" dominant-baseline="central">Orchestrator</text>
+<text class="box-sub c-purple-sub" x="137" y="273" text-anchor="middle" dominant-baseline="central">pipeline · session · request_id</text>
+
+<!-- QA Agent -->
+<rect x="255" y="234" width="190" height="56" rx="8" stroke-width="0.75" class="c-purple-fill"/>
+<text class="box-title c-purple-title" x="350" y="255" text-anchor="middle" dominant-baseline="central">QA Agent</text>
+<text class="box-sub c-purple-sub" x="350" y="273" text-anchor="middle" dominant-baseline="central">4 intents · roteia use cases</text>
+
+<!-- FailureHandler -->
+<rect x="465" y="234" width="220" height="56" rx="8" stroke-width="0.75" class="c-red-fill"/>
+<text class="box-title c-red-title" x="575" y="255" text-anchor="middle" dominant-baseline="central">Failure Handler</text>
+<text class="box-sub c-red-sub" x="575" y="273" text-anchor="middle" dominant-baseline="central">retry · backoff · dead letter</text>
+
+<!-- Container → Adapters -->
+<line x1="360" y1="199" x2="137" y2="234" class="arr-main" marker-end="url(#arrow)"/>
+<line x1="405" y1="199" x2="350" y2="234" class="arr-main" marker-end="url(#arrow)"/>
+<line x1="450" y1="199" x2="530" y2="234" class="arr-main" marker-end="url(#arrow)"/>
+<!-- Orchestrator → Agent -->
+<line x1="235" y1="262" x2="255" y2="262" class="arr-main" marker-end="url(#arrow)"/>
+
+<!-- ── ADAPTERS — ROW 2 ─────────────────────────────────── -->
+
+<!-- PromptBuilder -->
+<rect x="40" y="316" width="195" height="56" rx="8" stroke-width="0.75" class="c-purple-fill"/>
+<text class="box-title c-purple-title" x="137" y="337" text-anchor="middle" dominant-baseline="central">Prompt Builder</text>
+<text class="box-sub c-purple-sub" x="137" y="355" text-anchor="middle" dominant-baseline="central">5 builders · context + RAG</text>
+
+<!-- ValidatorChain -->
+<rect x="255" y="316" width="190" height="56" rx="8" stroke-width="0.75" class="c-teal-fill"/>
+<text class="box-title c-teal-title" x="350" y="337" text-anchor="middle" dominant-baseline="central">Validator Chain</text>
+<text class="box-sub c-teal-sub" x="350" y="355" text-anchor="middle" dominant-baseline="central">completeness · traceability · length</text>
+
+<!-- ResponseBuilder -->
+<rect x="465" y="316" width="220" height="56" rx="8" stroke-width="0.75" class="c-teal-fill"/>
+<text class="box-title c-teal-title" x="575" y="337" text-anchor="middle" dominant-baseline="central">Response Builder</text>
+<text class="box-sub c-teal-sub" x="575" y="355" text-anchor="middle" dominant-baseline="central">4 DTOs · ConfidenceAggregator</text>
+
+<!-- Agent → PromptBuilder -->
+<line x1="255" y1="290" x2="137" y2="316" class="arr-main" marker-end="url(#arrow)"/>
+<!-- ValidatorChain → ResponseBuilder -->
+<line x1="445" y1="344" x2="465" y2="344" class="arr-main" marker-end="url(#arrow)"/>
+
+<!-- ── ADAPTERS — ROW 3 (ChannelFormatter) ─────────────── -->
+
+<rect x="465" y="390" width="220" height="44" rx="8" stroke-width="0.75" class="c-teal-fill"/>
+<text class="box-title c-teal-title" x="575" y="407" text-anchor="middle" dominant-baseline="central">Channel Formatter</text>
+<text class="box-sub c-teal-sub" x="575" y="423" text-anchor="middle" dominant-baseline="central">JSON · Markdown · CSV · Robot</text>
+
+<!-- ResponseBuilder → ChannelFormatter -->
+<line x1="575" y1="372" x2="575" y2="390" class="arr-main" marker-end="url(#arrow)"/>
+
+<!-- separator -->
+<line x1="30" y1="452" x2="870" y2="452" stroke="#ddd" stroke-width="1"/>
+
+<!-- ══════════════════════════════════════════════════════
+     DOMAIN
+══════════════════════════════════════════════════════ -->
+
+<!-- Entities -->
+<rect x="40" y="468" width="195" height="72" rx="8" stroke-width="0.75" class="c-amber-fill"/>
+<text class="box-title c-amber-title" x="137" y="489" text-anchor="middle" dominant-baseline="central">Entities</text>
+<text class="box-sub c-amber-sub" x="137" y="507" text-anchor="middle" dominant-baseline="central">requirement.py</text>
+<text class="box-sub c-amber-sub" x="137" y="523" text-anchor="middle" dominant-baseline="central">test_case.py · rtm.py</text>
+
+<!-- Ports -->
+<rect x="255" y="468" width="190" height="72" rx="8" stroke-width="0.75" class="c-amber-fill"/>
+<text class="box-title c-amber-title" x="350" y="489" text-anchor="middle" dominant-baseline="central">Ports (ABCs)</text>
+<text class="box-sub c-amber-sub" x="350" y="507" text-anchor="middle" dominant-baseline="central">llm_port · knowledge_port</text>
+<text class="box-sub c-amber-sub" x="350" y="523" text-anchor="middle" dominant-baseline="central">vector_store_port</text>
+
+<!-- Use Cases -->
+<rect x="465" y="468" width="220" height="72" rx="8" stroke-width="0.75" class="c-coral-fill"/>
+<text class="box-title c-coral-title" x="575" y="489" text-anchor="middle" dominant-baseline="central">Use Cases</text>
+<text class="box-sub c-coral-sub" x="575" y="507" text-anchor="middle" dominant-baseline="central">analyze_user_story · design_tests</text>
+<text class="box-sub c-coral-sub" x="575" y="523" text-anchor="middle" dominant-baseline="central">generate_rtm · create_user_story</text>
+
+<!-- Adapters → Domain (inversão de dependência, tracejado) -->
+<line x1="137" y1="372" x2="137" y2="468" class="arr-dash" marker-end="url(#arrow-dash)"/>
+<line x1="350" y1="372" x2="350" y2="468" class="arr-dash" marker-end="url(#arrow-dash)"/>
+<line x1="575" y1="434" x2="575" y2="468" class="arr-dash" marker-end="url(#arrow-dash)"/>
+
+<!-- separator -->
+<line x1="30" y1="558" x2="870" y2="558" stroke="#ddd" stroke-width="1"/>
+
+<!-- ══════════════════════════════════════════════════════
+     INFRASTRUCTURE
+══════════════════════════════════════════════════════ -->
+
+<!-- B3GPT -->
+<rect x="40" y="574" width="195" height="56" rx="8" stroke-width="0.75" class="c-blue-fill"/>
+<text class="box-title c-blue-title" x="137" y="595" text-anchor="middle" dominant-baseline="central">B3GPT Provider</text>
+<text class="box-sub c-blue-sub" x="137" y="613" text-anchor="middle" dominant-baseline="central">implementa LLMPort</text>
+
+<!-- RAG Service -->
+<rect x="255" y="574" width="190" height="56" rx="8" stroke-width="0.75" class="c-blue-fill"/>
+<text class="box-title c-blue-title" x="350" y="595" text-anchor="middle" dominant-baseline="central">RAG Service</text>
+<text class="box-sub c-blue-sub" x="350" y="613" text-anchor="middle" dominant-baseline="central">retrieval · ingestion · rerank</text>
+
+<!-- Vector Stores -->
+<rect x="465" y="574" width="220" height="56" rx="8" stroke-width="0.75" class="c-blue-fill"/>
+<text class="box-title c-blue-title" x="575" y="595" text-anchor="middle" dominant-baseline="central">Vector Stores</text>
+<text class="box-sub c-blue-sub" x="575" y="613" text-anchor="middle" dominant-baseline="central">Chroma · FAISS · Qdrant</text>
+
+<!-- Domain Ports → Infrastructure (dependency inversion) -->
+<line x1="137" y1="540" x2="137" y2="574" class="arr-dash" marker-end="url(#arrow-dash)"/>
+<line x1="350" y1="540" x2="350" y2="574" class="arr-dash" marker-end="url(#arrow-dash)"/>
+<line x1="575" y1="540" x2="575" y2="574" class="arr-dash" marker-end="url(#arrow-dash)"/>
+
+<!-- ── Observability + Config ────────────────────────────── -->
+<rect x="40" y="654" width="195" height="44" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="137" y="671" text-anchor="middle" dominant-baseline="central">Observability</text>
+<text class="box-sub c-gray-sub" x="137" y="688" text-anchor="middle" dominant-baseline="central">StructuredLogger JSON</text>
+
+<rect x="255" y="654" width="190" height="44" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="350" y="671" text-anchor="middle" dominant-baseline="central">Config / Settings</text>
+<text class="box-sub c-gray-sub" x="350" y="688" text-anchor="middle" dominant-baseline="central">Pydantic · .env</text>
+
+<rect x="465" y="654" width="220" height="44" rx="8" stroke-width="0.75" class="c-gray-fill"/>
+<text class="box-title c-gray-title" x="575" y="671" text-anchor="middle" dominant-baseline="central">Knowledge Repository</text>
+<text class="box-sub c-gray-sub" x="575" y="688" text-anchor="middle" dominant-baseline="central">standards · RTMs · User Stories</text>
+
+<!-- separator -->
+<line x1="30" y1="718" x2="870" y2="718" stroke="#ddd" stroke-width="1"/>
+
+<!-- ══════════════════════════════════════════════════════
+     LEGENDA
+══════════════════════════════════════════════════════ -->
+
+<rect x="40" y="734" width="820" height="100" rx="8" fill="#f8f8f8" stroke="#e0e0e0" stroke-width="0.75"/>
+
+<text class="legend-text" x="60" y="756" font-weight="600" fill="#333">Legenda</text>
+
+<!-- linha sólida -->
+<line x1="60" y1="775" x2="110" y2="775" stroke="#555" stroke-width="1.5" marker-end="url(#arrow)"/>
+<text class="legend-text" x="118" y="779">fluxo principal de dados</text>
+
+<!-- linha tracejada -->
+<line x1="60" y1="803" x2="110" y2="803" stroke="#aaa" stroke-width="1" stroke-dasharray="5 3" marker-end="url(#arrow-dash)"/>
+<text class="legend-text" x="118" y="807">inversão de dependência (Port → implementação)</text>
+
+<!-- cores -->
+<rect x="400" y="763" width="12" height="12" rx="2" fill="#FAEEDA" stroke="#854F0B" stroke-width="0.75"/>
+<text class="legend-text" x="418" y="773">domínio puro (sem dependências externas)</text>
+
+<rect x="400" y="791" width="12" height="12" rx="2" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.75"/>
+<text class="legend-text" x="418" y="801">infraestrutura (plugável via Port)</text>
+
+<rect x="650" y="763" width="12" height="12" rx="2" fill="#EEEDFE" stroke="#534AB7" stroke-width="0.75"/>
+<text class="legend-text" x="668" y="773">adapters (tradutores)</text>
+
+<rect x="650" y="791" width="12" height="12" rx="2" fill="#E1F5EE" stroke="#0F6E56" stroke-width="0.75"/>
+<text class="legend-text" x="668" y="801">response layer</text>
+
+<!-- rodapé -->
+<text x="450" y="858" text-anchor="middle" font-size="10" fill="#aaa" font-family="-apple-system,sans-serif">QE Copilot · Clean Architecture · 55 arquivos Python · FastAPI 7 rotas · Streamlit 5 abas · Robot Framework compatible</text>
+
+</svg>
